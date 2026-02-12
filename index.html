@@ -374,14 +374,15 @@
     </p>
 
     <!-- 🔹 Actual Form Starts Here -->
-    <form id="contactForm" action="https://forms.gle/gELN2sTUtrPzKzhWA" method="post">
+    <!-- UPDATE: Replace YOUR_FORM_ID with your Formspree ID -->
+    <form id="contactForm" action=""https://formspree.io/f/xwvnlpja"" method="POST">
 
       <div class="form-group">
-        <input id="firstName" name="firstName" type="text" placeholder="First Name" required>
+        <input id="firstName" name="First Name" type="text" placeholder="First Name" required>
       </div>
 
       <div class="form-group">
-        <input id="lastName" name="lastName" type="text" placeholder="Last Name" required>
+        <input id="lastName" name="Last Name" type="text" placeholder="Last Name" required>
       </div>
 
       <div class="form-group">
@@ -389,15 +390,15 @@
       </div>
 
       <div class="form-group">
-        <input id="phone" name="phone" type="tel" placeholder="Phone" required>
+        <input id="phone" name="Phone" type="tel" placeholder="Phone" required>
       </div>
 
       <div class="form-group">
-         <input id="marketer" name="marketer" type="text" placeholder="Marketer Name" required>
+         <input id="marketer" name="Marketer Name" type="text" placeholder="Marketer Name" required>
       </div>
 
       <div class="form-group">
-        <textarea id="message" name="message" placeholder="What can we help you with?"></textarea>
+        <textarea id="message" name="Message" placeholder="What can we help you with?"></textarea>
       </div>
 
       <button id="submitBtn" type="submit">Book a Call</button>
@@ -466,6 +467,7 @@
   const lastName = document.getElementById('lastName');
   const email = document.getElementById('email');
   const phone = document.getElementById('phone');
+  const marketer = document.getElementById('marketer');
   const message = document.getElementById('message');
 
   const DRAFT_KEY = 'contact_draft';
@@ -494,7 +496,7 @@
     localStorage.setItem(DRAFT_KEY, JSON.stringify(d));
   }
 
-  [firstName, lastName, email, phone, message].forEach(el => {
+  [firstName, lastName, email, phone, marketer, message].forEach(el => {
     if (!el) return;
     el.addEventListener('input', saveDraft);
   });
@@ -524,7 +526,7 @@
           <strong>${escapeHtml(s.firstName || '')} ${escapeHtml(s.lastName || '')}</strong>
           <small style="color:#666">${new Date(s.time).toLocaleString()}</small>
         </div>
-        <div style="margin-top:6px;color:#333">${escapeHtml(s.email || '')} • ${escapeHtml(s.phone || '')}</div>
+        <div style="margin-top:6px;color:#333">${escapeHtml(s.email || '')} • ${escapeHtml(s.phone || '')} • ${escapeHtml(s.marketer || '')}</div>
         <div style="margin-top:8px;color:#444">${escapeHtml(s.message || '')}</div>
         <div style="margin-top:8px;text-align:right;"><button data-delete-index="${i}" style="background:#ff6b6b;color:#fff;border:none;padding:6px 10px;border-radius:6px;cursor:pointer">Delete</button></div>
       `;
