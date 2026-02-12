@@ -26,7 +26,7 @@
     <!-- NAV LINKS -->
     <nav class="pn-nav-links" id="pnNavLinks">
       <a href="index.html" class="active">Home</a>
-      <a href="properties.html">Properties</a>
+      <a href="index (2).html">Properties</a>
     </nav>
 
   </div>
@@ -41,7 +41,7 @@
     <!-- ESTATE CARD -->
     <div class="pn-estate-card">
       <h3>Imperial Vantage</h3>
-      <p class="pn-location">📍 Behind federal Housing Authority (FHA) Gusape 2, Abuja</p>
+      <p class="pn-location">📍 Behind federal Housing Authority (FHA) Guzape 2, Abuja</p>
 
       <div class="pn-prototypes">
         <img src="imperial2.jpg" alt="">
@@ -56,17 +56,34 @@
       </ul>
     </div>
 
-    <!-- EVERSTEAD -->
+        <!-- EVERSTEAD -->
     <div class="pn-estate-card">
       <h3>Everstead Estate</h3>
+      <p class="pn-location">📍 Opposite Harmony Hills Katampe Extension, Abuja</p>
+
+      <div class="pn-prototypes">
+        <img src="katampe4.webp" alt="">
+        <img src="katampe.jpg" alt="">
+      </div>
+
+      <ul class="pn-features">
+        <li>✔ Plot Sizes: 180sqm, 250sqm, 350sqm, 500sqm & 750sqm</li>
+        <li>✔ Title: Approved FCDA Certificate of Occupancy</li>
+        <li>✔ Designed for Smart Investors</li>
+      </ul>
+    </div>
+
+    <!-- EVERSTEAD -->
+    <div class="pn-estate-card">
+      <h3>Everstead Estate Phase 2</h3>
       <p class="pn-location">📍 Behind Harmony Hills Katampe Extension, Abuja</p>
 
       <div class="pn-prototypes">
-        <img src="everstead 700SQM 3D3.jpg" alt="">
-        <img src="katampe3.webp" alt="">
-        <img src="katampe4.webp" alt="">
-        <img src="katampe5.jfif" alt="">
-        <img src="katampe1.jfif" alt="">
+        <img src="3 Bedroom terrace block with attached bq 180sqm 3D1.jpg" alt="">
+        <img src="4 Bedroom fully detached duplex with attached bq 350sqm 3D2.jpg" alt="">
+        <img src="5 Bedroom fully detached duplex with attached bq 400sqm 3D2 2.jpg" alt="">
+        <img src="6 BEDROOM FULLY DETACHED DUPLEX WITH ATTACHED BQ 500SQM 3D1.jpg" alt="">
+        <img src="3 BEDROOM BLOCK OF FLATS 750SQM 3D1.jpg" alt="">
       </div>
 
       <ul class="pn-features">
@@ -82,8 +99,8 @@
       <p class="pn-location">📍 Behind NAF Valley Asokoro Extension, Abuja</p>
 
       <div class="pn-prototypes">
-        <img src="amberhills.jpg" alt="">
         <img src="amberhills2.jpg" alt="">
+        <img src="imperial5.jpg" alt="">
         <img src="amberhills5.jpg" alt="">
       </div>
 
@@ -115,32 +132,68 @@
   </div>
 </section>
 
-<section class="pn-contact-section">
-  <div class="pn-contact-wrapper">
+<section class="contact-section">
+  <div class="contact-card">
 
-    <div class="pn-badge">Who We Are</div>
+    <!-- 🔹 Intro Content (OUTSIDE the form) -->
+    <div class="pill"><strong>Contact Us</strong></div>
 
-    <h1 class="pn-contact-title">
-      LET’S MAKE YOUR PROPERTY JOURNEY<br>EFFORTLESS
+    <h1>
+      LET’S MAKE YOUR PROPERTY JOURNEY<br>
+      <span>EFFORTLESS</span>
     </h1>
 
-    <p class="pn-contact-text">
-      Have questions or ready to take the next step? Whether you're looking to
-      buy, rent, or invest, our team is here to guide you every step of the way.
+    <p>
+      Have questions or ready to take the next step?
+      Whether you're looking to buy, rent, or invest,
+      our team is here to guide you every step of the way.
       Let’s turn your property goals into reality.
     </p>
 
-    <form class="pn-contact-form">
-      <input type="text" placeholder="First Name" required>
-      <input type="text" placeholder="Last Name" required>
-      <input type="email" placeholder="Email" required>
-      <input type="tel" placeholder="Phone" required>
-      <textarea placeholder="What can we help you with?" rows="3"></textarea>
+    <!-- 🔹 Actual Form Starts Here -->
+    <form id="contactForm" action="https://forms.gle/gELN2sTUtrPzKzhWA" method="post">
 
-      <button type="submit" class="pn-submit-btn">
-        Book a Call
-      </button>
+      <div class="form-group">
+        <input id="firstName" name="firstName" type="text" placeholder="First Name" required>
+      </div>
+
+      <div class="form-group">
+        <input id="lastName" name="lastName" type="text" placeholder="Last Name" required>
+      </div>
+
+      <div class="form-group">
+        <input id="email" name="email" type="email" placeholder="Email" required>
+      </div>
+
+      <div class="form-group">
+        <input id="phone" name="phone" type="tel" placeholder="Phone" required>
+      </div>
+
+      <div class="form-group">
+        <input id="marketer" name="marketer" type="text" placeholder="Marketer Name" required>
+      </div>
+
+      <div class="form-group">
+        <textarea id="message" name="message" placeholder="What can we help you with?"></textarea>
+      </div>
+
+      <button id="submitBtn" type="submit">Book a Call</button>
+
     </form>
+
+    <div style="margin-top:18px;">
+      <button id="viewSubmissionsBtn" type="button">View Submissions</button>
+    </div>
+
+    <div id="submissionsPanel" style="display:none; margin-top:12px; border-radius:8px; padding:12px; background:#fafafa; box-shadow:0 4px 12px rgba(0,0,0,0.06);">
+      <h3>Saved Submissions</h3>
+      <div id="submissionsList" style="max-height:280px; overflow:auto; margin-bottom:12px;"></div>
+      <button id="clearSubmissions" type="button">Clear All</button>
+    </div>
+
+  </div>
+</section>
+
 
   </div>
 </section>
@@ -156,10 +209,6 @@
     </div>
 
     <div class="peaknova-footer-contacts">
-      <p>
-        <a href="tel:+2349076128118">+234 907 612 8118</a>,
-        <a href="tel:+2347077500645">+234 707 750 0645</a>
-      </p>
 
       <p>
         <a href="mailto:info@peaknova.com">info@peaknova.com</a>
@@ -175,8 +224,8 @@
     <div class="peaknova-footer-socials">
       <a href="https://www.facebook.com/share/17ivfSvJe2/?mibextid=wwXIfr" aria-label="Facebook">f</a>
       <a href="https://www.instagram.com/peaknovalimited/?utm_source=ig_web_button_share_sheet" aria-label="Instagram">◎</a>
-      <a href="#" aria-label="LinkedIn">in</a>
-      <a href="#" aria-label="YouTube">▶</a>
+      <a href="https://www.linkedin.com/company/peaknovalimited/" aria-label="LinkedIn">in</a>
+      <a href="https://www.youtube.com/@PeakNovaLimited" aria-label="YouTube">▶</a>
     </div>
 
     <div class="peaknova-footer-bottom">

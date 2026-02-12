@@ -31,10 +31,18 @@ body {
 }
 
 /* LOGO */
+.pn-logo {
+  display: flex;
+  align-items: center;
+}
+
 .pn-logo img {
-  width: 160px;
+  max-width: 160px; /* limit size on large screens */
+  width: auto;
   height: auto;
+  max-height: 64px; /* prevents very tall logos from overflowing */
   display: block;
+  object-fit: contain;
 }
 
 .pn-navbar {
@@ -79,13 +87,28 @@ body {
   flex-direction: column;
   gap: 6px;
   cursor: pointer;
+  z-index: 1001;
 }
 
 .pn-menu-toggle span {
   width: 26px;
   height: 2px;
-  background: #fff;
+  background: black;
   display: block;
+  transition: all 0.3s ease;
+}
+
+/* Hamburger active state */
+.pn-menu-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(10px, 10px);
+}
+
+.pn-menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.pn-menu-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
 }
 
 
@@ -149,7 +172,7 @@ body {
 
 /* SERVICES */
 .services {
-  padding: 80px 20px;
+  padding: 40px 20px;
 }
 
 .badge {
@@ -215,9 +238,9 @@ body {
 }
 
 .estate-item {
-  margin-bottom: 15px;
+  margin: 8px 10px;
   padding: 15px;
-  margin: 10px;
+  margin-top: -35px;
 }
 
 /* CONTENT */
@@ -652,6 +675,59 @@ button:hover {
 }
 
 /* Responsive */
+/* Logo responsive breakpoints */
+@media (max-width: 1024px) {
+  .pn-logo img {
+    max-width: 140px;
+    max-height: 56px;
+  }
+}
+
+@media (max-width: 768px) {
+  .pn-logo img {
+    max-width: 120px;
+    max-height: 48px;
+  }
+
+  /* show hamburger on small screens and hide inline links */
+  .pn-menu-toggle {
+    display: flex;
+  }
+
+  .pn-nav-links {
+    display: none;
+  }
+
+  /* When the menu is toggled, show the links in a vertical dropdown */
+  .pn-nav-links.active {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 64px;
+    right: 20px;
+    background: #fff;
+    padding: 12px 16px;
+    gap: 8px;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    z-index: 1002;
+    min-width: 160px;
+  }
+
+  .pn-nav-links.active a {
+    display: block;
+    color: #000;
+    padding: 8px 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pn-logo img {
+    max-width: 100px;
+    max-height: 40px;
+  }
+}
+
 @media (max-width: 480px) {
   .contact-card h1 {
     font-size: 22px;
