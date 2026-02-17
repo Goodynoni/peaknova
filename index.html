@@ -375,7 +375,7 @@
 
     <!-- 🔹 Actual Form Starts Here -->
     <!-- UPDATE: Replace YOUR_FORM_ID with your Formspree ID -->
-    <form id="contactForm" action=""https://formspree.io/f/xwvnlpja"" method="POST">
+    <form id="contactForm" action="https://formspree.io/f/mreakyvv" method="POST">
 
       <div class="form-group">
         <input id="firstName" name="First Name" type="text" placeholder="First Name" required>
@@ -394,7 +394,7 @@
       </div>
 
       <div class="form-group">
-         <input id="marketer" name="Marketer Name" type="text" placeholder="Marketer Name" required>
+        <input id="marketer" name="Marketer Name" type="text" placeholder="Marketer Name" required>
       </div>
 
       <div class="form-group">
@@ -404,16 +404,6 @@
       <button id="submitBtn" type="submit">Book a Call</button>
 
     </form>
-
-    <div style="margin-top:18px;">
-      <button id="viewSubmissionsBtn" type="button">View Submissions</button>
-    </div>
-
-    <div id="submissionsPanel" style="display:none; margin-top:12px; border-radius:8px; padding:12px; background:#fafafa; box-shadow:0 4px 12px rgba(0,0,0,0.06);">
-      <h3>Saved Submissions</h3>
-      <div id="submissionsList" style="max-height:280px; overflow:auto; margin-bottom:12px;"></div>
-      <button id="clearSubmissions" type="button">Clear All</button>
-    </div>
 
   </div>
 </section>
@@ -458,136 +448,6 @@
 
 
 <script>
-/* Contact form: autosave, local submissions, and viewer */
-(function () {
-  const form = document.getElementById('contactForm');
-  if (!form) return;
-
-  const firstName = document.getElementById('firstName');
-  const lastName = document.getElementById('lastName');
-  const email = document.getElementById('email');
-  const phone = document.getElementById('phone');
-  const marketer = document.getElementById('marketer');
-  const message = document.getElementById('message');
-
-  const DRAFT_KEY = 'contact_draft';
-  const SUBS_KEY = 'contact_submissions';
-
-  try {
-    const draft = JSON.parse(localStorage.getItem(DRAFT_KEY) || '{}');
-    if (draft.firstName) firstName.value = draft.firstName || '';
-    if (draft.lastName) lastName.value = draft.lastName || '';
-    if (draft.email) email.value = draft.email || '';
-    if (draft.phone) phone.value = draft.phone || '';
-    if (draft.message) message.value = draft.message || '';
-  } catch (e) {
-    console.warn('Failed to load contact draft', e);
-  }
-
-  function saveDraft() {
-    const d = {
-      firstName: firstName.value,
-      lastName: lastName.value,
-      email: email.value,
-      phone: phone.value,
-      message: message.value,
-      updatedAt: new Date().toISOString()
-    };
-    localStorage.setItem(DRAFT_KEY, JSON.stringify(d));
-  }
-
-  [firstName, lastName, email, phone, marketer, message].forEach(el => {
-    if (!el) return;
-    el.addEventListener('input', saveDraft);
-  });
-
-  function escapeHtml(str) {
-    return String(str || '').replace(/[&<>\"']/g, function (m) {
-      return ({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":"&#39;"})[m];
-    });
-  }
-
-  function renderSubmissions() {
-    const listEl = document.getElementById('submissionsList');
-    if (!listEl) return;
-    const arr = JSON.parse(localStorage.getItem(SUBS_KEY) || '[]');
-    listEl.innerHTML = '';
-    if (!arr.length) {
-      listEl.innerHTML = '<p style="opacity:.8">No submissions yet.</p>';
-      return;
-    }
-
-    arr.forEach((s, i) => {
-      const item = document.createElement('div');
-      item.style.padding = '10px';
-      item.style.borderBottom = '1px solid #eee';
-      item.innerHTML = `
-        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
-          <strong>${escapeHtml(s.firstName || '')} ${escapeHtml(s.lastName || '')}</strong>
-          <small style="color:#666">${new Date(s.time).toLocaleString()}</small>
-        </div>
-        <div style="margin-top:6px;color:#333">${escapeHtml(s.email || '')} • ${escapeHtml(s.phone || '')} • ${escapeHtml(s.marketer || '')}</div>
-        <div style="margin-top:8px;color:#444">${escapeHtml(s.message || '')}</div>
-        <div style="margin-top:8px;text-align:right;"><button data-delete-index="${i}" style="background:#ff6b6b;color:#fff;border:none;padding:6px 10px;border-radius:6px;cursor:pointer">Delete</button></div>
-      `;
-      listEl.appendChild(item);
-    });
-  }
-
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    const submission = {
-      firstName: firstName.value,
-      lastName: lastName.value,
-      email: email.value,
-      phone: phone.value,
-      message: message.value,
-      time: new Date().toISOString()
-    };
-
-    try {
-      const arr = JSON.parse(localStorage.getItem(SUBS_KEY) || '[]');
-      arr.unshift(submission);
-      localStorage.setItem(SUBS_KEY, JSON.stringify(arr));
-      localStorage.removeItem(DRAFT_KEY);
-      form.reset();
-      renderSubmissions();
-      alert('Submission saved locally. Open "View Submissions" to review.');
-    } catch (err) {
-      console.error('Failed to save submission', err);
-      alert('Could not save submission locally.');
-    }
-  });
-
-  document.getElementById('submissionsList').addEventListener('click', function (ev) {
-    const idx = ev.target && ev.target.dataset && ev.target.dataset.deleteIndex;
-    if (typeof idx === 'undefined') return;
-    const i = Number(idx);
-    const arr = JSON.parse(localStorage.getItem(SUBS_KEY) || '[]');
-    if (!Array.isArray(arr)) return;
-    arr.splice(i, 1);
-    localStorage.setItem(SUBS_KEY, JSON.stringify(arr));
-    renderSubmissions();
-  });
-
-  document.getElementById('viewSubmissionsBtn').addEventListener('click', function () {
-    const panel = document.getElementById('submissionsPanel');
-    if (!panel) return;
-    panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
-    renderSubmissions();
-  });
-
-  document.getElementById('clearSubmissions').addEventListener('click', function () {
-    if (!confirm('Clear all saved submissions?')) return;
-    localStorage.removeItem(SUBS_KEY);
-    renderSubmissions();
-  });
-
-  if (document.getElementById('submissionsPanel').style.display !== 'none') renderSubmissions();
-
-})();
-
 (function(){
   /* Counters: animate when about-story-section enters viewport */
   const counters = document.querySelectorAll('.about-story-number');
